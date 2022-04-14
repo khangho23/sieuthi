@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang đăng ký</title>
+
+
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000');
+        }
+
+        [name='formdk'] {
+            width: 600px;
+            margin: auto;
+            /* background-color: darksalmon; */
+            background-image: url(bg.jpg);
+            padding: 20px;
+            border-radius: 20px;
+            background-color: aqua;
+        }
+
+        label {
+            color: darkred;
+            width: 90px;
+            display: inline-block;
+            height: 25px;
+            top: -3px;
+            position: relative;
+        }
+
+        div {
+            padding: 8px 0;
+        }
+
+        #ntn {
+            display: inline-block;
+            width: 450px;
+            padding: 10px
+        }
+
+        #ntn input {
+            width: 50px;
+            margin-left: 10px;
+            height: 25px;
+        }
+
+        .txt {
+            width: 480px;
+            /* background-color: gold;
+        border: none; */
+            height: 25px;
+        }
+
+        span {
+            width: 120px;
+            display: inline-block;
+        }
+
+        button {
+            width: 100px;
+            height: 30px;
+            color: black;
+        }
+
+        .err {
+            color: red;
+            width: 220px;
+            margin-left: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="formdk">
+        <div>
+            <label>Họ </label>
+            <input type="text" name="ho" class="txt">
+        </div>
+        <div>
+            <label>Tên</label>
+            <input type="text" name="ten" class="txt">
+            <span class="err" id="errTen"></span>
+        </div>
+        <div>
+            <label>Ngày sinh</label>
+            <fieldset id="ntn">
+                Ngày <input type="number" name="ngay" min="1" max="31"> Tháng <input type="number" name="thang" min="1"
+                    max="12"> Năm <input type="number" name="nam" min="1950" max="2010">
+            </fieldset>
+        </div>
+        <div>
+            <label>Giới tính</label>
+            <input type="radio" name="gioitinh" value="1">Nam
+            <input type="radio" name="gioitinh" value=0>Nữ
+        </div>
+        <div>
+            <label>Điện thoại</label>
+            <input type="text" name="dienthoai" class="txt">
+        </div>
+        <label>Email</label>
+        <input type="text" name="email" class="txt">
+        </div>
+        <div>
+            <label>Sở thích</label>
+            <fieldset id="ntn">
+                <input type="checkbox" name="sothich"><span>Đọc sách</span>
+                <input type="checkbox" name="sothich"><span>Xem phim</span> <br>
+                <input type="checkbox" name="sothich"><span>Nghe nhạc</span>
+                <input type="checkbox" name="sothich"><span>Đá bóng</span> <br>
+                <input type="checkbox" name="sothich"><span>May vá</span>
+                <input type="checkbox" name="sothich"><span>Khác</span>
+            </fieldset>
+        </div>
+        <div>
+            <label></label>
+            <button type="button" onclick="checkData();">Đăng ký</button>
+        </div>
+    </form>
+    <script>
+        function checkData() {
+            if (!checkHo()) return;
+            if (!checkTen()) return;
+            if (!checkNgayThangNam()) return;
+            if (!checkGT()) return;
+            if (!checkDT()) return;
+            if (!checkSoThich()) return;
+
+            alert("Đăng ký thành công!");
+
+
+
+
+        }
+
+        function checkHo() {
+            var ho = document.forms["formdk"]["ho"];
+            if (ho.value == "") {
+                alert("Vui lòng nhập họ");
+                ho.focus();
+                return false;
+            }
+            return true;
+        }
+        function checkTen() {
+            var ten = document.forms["formdk"]["ten"];
+            if (ten.value == "") {
+                alert("Vui lòng nhập tên");
+                ten.focus();
+                return false;
+            }
+            return true;
+        }
+
+        function checkNgayThangNam() {
+            var ngay = document.forms["formdk"]["ngay"];
+            var thang = document.forms["formdk"]["thang"];
+            var nam = document.forms["formdk"]["nam"];
+            if (ngay.value == "") {
+                alert("Vui lòng nhập ngày");
+                ngay.focus();
+                return false;
+            }
+            if (thang.value == "") {
+                alert("Vui lòng nhập ngày");
+                thang.focus();
+                return false;
+            }
+            if (nam.value == "") {
+                alert("Vui lòng nhập ngày");
+                nam.focus();
+                return false;
+            }
+            return true;
+        }
+
+        function checkGT() {
+            var gioitinh = document.forms["formdk"]["gioitinh"];
+            if (!gioitinh[0].checked && !gioitinh[1].checked) {
+                alert("Vui lòng chọn Nam/Nữ");
+                gioitinh.focus();
+                return false;
+            }
+            return true;
+        }
+
+        function checkDT() {
+            var dienthoai = document.forms["formdk"]["dienthoai"];
+            if (dienthoai.value == "") {
+                alert("Vui lòng nhập số điện thoại");
+                dienthoai.focus();
+                return false
+            }
+            return true;
+        }
+        function checkSoThich() {
+            var sothich = document.forms["formdk"]["sothich"];
+            var i;
+            for (var i = 0; i < sothich.length; i++) {
+                if (sothich[i].checked) break;
+            }
+            if (i > sothich.length) {
+                alert("Vui lòng chọn ít nhất 1 sở thích");
+                sothich.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>
